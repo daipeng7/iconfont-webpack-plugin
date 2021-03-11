@@ -44,6 +44,9 @@ module.exports = function (fileMark, glyphDatas, options) {
         JSON.parse(JSON.stringify(options))
     );
     nunjucks.configure(cssTemplateFile, { autoescape: true });
+    nunjucksOptions.clsList = nunjucksOptions.glyphs.map(glyph => {
+        return '.' + nunjucksOptions.cssPrefix + '-' + glyph.name;
+    })
     var cssHtml = {
         css: nunjucks.render(cssTemplateFile, nunjucksOptions),
     }

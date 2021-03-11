@@ -43,13 +43,13 @@ module.exports = function getGlyphDatas(files, options) {
                             prependUnicode: options.prependUnicode,
                             startUnicode: options.startUnicode + index
                         });
-                    metadataProvider(glyphData.srcPath, (error, metadata) => {
-                        if (error) {
-                            return reject(error);
-                        }
-                        glyphData.metadata = metadata;
-                        return resolve(glyphData);
-                    });
+                        metadataProvider(glyphData.srcPath, (error, metadata) => {
+                            if (error) {
+                                return reject(error);
+                            }
+                            glyphData.metadata = metadata;
+                            return resolve(glyphData);
+                        });
                 })
             )
         })

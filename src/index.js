@@ -23,7 +23,7 @@ module.exports = class IconfontPlugin {
     }
 
     apply(compiler) {
-        this.compile()
+        this.compile(compiler)
         this.watch();
     }
 
@@ -35,6 +35,7 @@ module.exports = class IconfontPlugin {
                 })
                 .then(ret => {
                     console.log('Font+css have been built with ' + ret.glyphDatas.length + ' svg-icons.');
+                    this.options.success && this.options.success();
                     return ret
                 })
                 .catch(console.error.bind(console)),

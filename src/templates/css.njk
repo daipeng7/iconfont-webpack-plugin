@@ -47,6 +47,15 @@
     font-style: normal;
 }
 
+{% if clsList.length > 0 %}
+{{ clsList | join(', ') }} {
+    font-family: '{{ fontName }}';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+}
+{% endif %}
+
 {% for glyph in glyphs %}
 .{{ cssPrefix }}-{{ glyph.name }}::before {
     content: "\{{ glyph.unicode[0].charCodeAt(0).toString(16) }}";
