@@ -1,4 +1,4 @@
-# webpack-iconfont-plugin-nodejs
+# @daipeng7/iconfont-webpack-plugin
 
 Use svg files to build iconfont files(ttf,woff2,woff,eot,svg), css file, js data file and html-preview file.
 
@@ -11,18 +11,9 @@ Use svg files to build iconfont files(ttf,woff2,woff,eot,svg), css file, js data
 * Fixed output files with the same svg files. It means that if the svg files are not changed, all the output files(ttf,woff,css...) will not change, even though you build them again.
 * High iconfont precision.
 
-## Test for preview:
-````bash
-git clone https://github.com/hzsrc/webpack-iconfont-plugin-nodejs.git
-cd webpack-iconfont-plugin-nodejs
-npm install
-npm run dev
-````
-Or visit this preview: http://test.hz300.com/webpack4/iconfontPreview.html
-
 
 ## Install:
-`npm install webpack-iconfont-plugin-nodejs`
+`npm install -D @daipeng7/iconfont-webpack-plugin`
 
 
 ## Usage:
@@ -32,19 +23,20 @@ You can use it by nodejs directly or use it in webpack
 `build/svg2font.js:`
 
 ```js
-var IconfontWebpackPlugin = require('webpack-iconfont-plugin-nodejs');
+var IconfontWebpackPlugin = require('@daipeng7/iconfont-webpack-plugin');
 var path = require('path');
 var dir = 'test/web_project/'
 var options = {
-  fontName: 'my-icons',
-  cssPrefix: 'ico',
   svgs: path.join(dir, 'svgs/*.svg'),
-  // template: path.join(dir, 'css.njk'),
-  fontsOutput: path.join(dir, 'fonts/'),
-  cssOutput: path.join(dir, 'fonts/font.css'),
-  htmlOutput: path.join(dir, 'fonts/_font-preview.html'),
-  jsOutput: path.join(dir, 'fonts/fonts.js'),
-  // formats: ['ttf', 'woff', 'svg'],
+  svgs: resolve('src/assets/svgs/*.svg'),
+  fontsOutput: resolve('src/style/iconfont/fonts'),
+  cssOutput: resolve('src/style/iconfont/index.css'),
+  fontName: 'custom-iconfont',
+  jsOutput: false,
+  htmlOutput: false,
+  template: 'scss',
+  cssFontPath: 'style/iconfont/fonts',
+  cssPrefix: 'ift',
 };
 
 new IconfontWebpackPlugin(options).build()
@@ -58,22 +50,23 @@ Or you can set this command to script of package.json, and run it by npm.
 
 #### 2. Use by webpack: 
 ```js
-var IconfontWebpackPlugin = require('webpack-iconfont-plugin-nodejs');
+var IconfontWebpackPlugin = require('@daipeng7/iconfont-webpack-plugin');
 var dir = 'test/web_project/'
 
 module.exports = {
     //... others
     plugins: [
         new IconfontWebpackPlugin({
-          fontName: 'my-icons',
-          cssPrefix: 'ico',
           svgs: path.join(dir, 'svgs/*.svg'),
-          // template: path.join(dir, 'css.njk'),
-          fontsOutput: path.join(dir, 'fonts/'),
-          cssOutput: path.join(dir, 'fonts/font.css'),
-          htmlOutput: path.join(dir, 'fonts/_font-preview.html'),
-          jsOutput: path.join(dir, 'fonts/fonts.js'),
-          // formats: ['ttf', 'woff', 'svg'],
+          svgs: resolve('src/assets/svgs/*.svg'),
+          fontsOutput: resolve('src/style/iconfont/fonts'),
+          cssOutput: resolve('src/style/iconfont/index.css'),
+          fontName: 'custom-iconfont',
+          jsOutput: false,
+          htmlOutput: false,
+          template: 'scss',
+          cssFontPath: 'style/iconfont/fonts',
+          cssPrefix: 'ift',
         }),
     ]
 };
@@ -140,10 +133,8 @@ Type: `String`
 Default value: path.relative(path.dirname(options.cssOutput), options.fontsOutput);    
 Font url path in `cssOutput` file.
 
-
-#### Other options for advanced
-Other options such as `startUnicode`, `prependUnicode` etc. in [defaultOptions.js](https://github.com/hzsrc/webpack-iconfont-plugin-nodejs/blob/master/src/defaultOptions.js),     
-Please refer to:    
+    
+## Please refer to:    
 https://www.npmjs.com/package/svgicons2svgfont    
 https://www.npmjs.com/package/svg2ttf    
 https://www.npmjs.com/package/ttf2eot    
